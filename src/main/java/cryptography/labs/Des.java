@@ -180,7 +180,7 @@ public class Des {
             // Simple xor function on two byte arrays
             byte[] answer = new byte[a.length];
             for (int i = 0; i < a.length; i++) {
-                answer[i] = (byte)(0xff & ((int)a[i] ^ (int)b[i]));
+                answer[i] = (byte) (0xff & ((int) a[i] ^ (int) b[i]));
             }
             return answer;
         }
