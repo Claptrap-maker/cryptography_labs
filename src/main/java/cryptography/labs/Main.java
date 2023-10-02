@@ -1,23 +1,33 @@
 package cryptography.labs;
 
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        System.out.println("Enter the input as a 16 character hexadecimal value:");
-        String input = new Scanner(System.in).nextLine();
-        byte[] inputBits = new byte[64];
-        // inputBits will store the 64 bits of the input as a byte array of
-        // size 64.
-        hexadecimalToBinary(input, inputBits);
-        System.out.println("Enter the key as a 16 character hexadecimal value:");
-        String key = new Scanner(System.in).nextLine();
+    public static void main(String[] args) throws IOException {
+        File keyFile = new File("D:\\des_src\\DesKey.txt");
+        File textFile = new File("D:\\des_src\\DesPlainText.txt");
+        File cipherFile = new File("D:\\des_src\\DesCipherText.txt");
+        FileReader keyFileReader = new FileReader(keyFile);
+        BufferedReader bufferedReader = new BufferedReader(keyFileReader);
         byte[] keyBits = new byte[64];
+        String key = bufferedReader.readLine();
         hexadecimalToBinary(key, keyBits);
-        System.out.println("\n+++ ENCRYPTION +++");
+        byte[] inputBits = new byte[64];
+        StringBuilder message = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new FileReader(textFile)))
+        {
+            String line;
+            while ((line = br.readLine()) != null) {
+                message.append(line);
+            }
+        }
+        hexadecimalToBinary(message.toString(), inputBits);
         Des des = new Des();
-        byte[] outputBits = des.permute(inputBits, keyBits, false);
-        des.permute(outputBits, keyBits, true);
+        String cipherString = des.permute(inputBits, keyBits, false);
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(cipherFile))) {
+            writer.write(cipherString+"");
+        }
+        //des.permute(outputBits, keyBits, true);
     }
 
     private static void hexadecimalToBinary(String input, byte[] inputBits) {

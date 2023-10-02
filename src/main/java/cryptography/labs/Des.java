@@ -31,7 +31,7 @@ public class Des {
 
     private byte[][] subKeys = new byte[16][48];
 
-    public byte[] permute(byte[] inputBits, byte[] keyBits, boolean isDecrypt) {
+    public String permute(byte[] inputBits, byte[] keyBits, boolean isDecrypt) {
         // Initial permutation takes input bits and permutes into the newBits array
         byte[] newBits = new byte[inputBits.length];
         for (int i = 0; i < inputBits.length; i++) {
@@ -64,7 +64,7 @@ public class Des {
             System.out.print("Encrypted text: ");
         }
         System.out.println(hex.toString().toUpperCase());
-        return finalOutput;
+        return hex.toString().toUpperCase();
     }
 
 
