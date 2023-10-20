@@ -1,4 +1,4 @@
-package cryptography.labs;
+package cryptography.labs.lab_1;
 
 public class Permutations {
     // S-boxes
