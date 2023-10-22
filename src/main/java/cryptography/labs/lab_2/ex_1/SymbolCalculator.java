@@ -1,7 +1,4 @@
-package cryptography.labs.lab_2.utils;
-
-import java.math.BigInteger;
-import java.security.GeneralSecurityException;
+package cryptography.labs.lab_2.ex_1;
 
 public class SymbolCalculator {
 //    private boolean isQuadraticResidue(int a, int p) {
@@ -26,7 +23,7 @@ public class SymbolCalculator {
         }
         if (a % 2 == 1){
             var res = Math.pow(-1, (float)((a - 1) * (p - 1) / 4));
-            return legendreSymbol(p, a) * (int)(res);
+            return legendreSymbol(p % a, a) * (int)(res);
         }
 //            BigInteger q = p.subtract(BigInteger.ONE).shiftRight(1);
 //            BigInteger t = x.modPow(q, p);
@@ -43,7 +40,7 @@ public class SymbolCalculator {
         throw new Exception("p must be prime");
     }
 
-    private int[] extendedGcd(int a, int b) {
+    public int[] extendedGcd(int a, int b) {
         int[] gcd;
         if (a == 0) {
             gcd = new int[]{b, 0, 1};
